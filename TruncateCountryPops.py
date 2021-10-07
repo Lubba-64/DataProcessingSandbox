@@ -1,6 +1,6 @@
 
 
-from process import GetSubString
+from process import GetCSVValue, GetSubString
 from process import GetSubString
 
 srcFolder = "MinecraftSpeedrunExtractCountries/"
@@ -12,7 +12,12 @@ with open(srcFolder + fileName + ext, "r") as input:
         # iterate all lines from file
         currentcountry = ''
         for line in input:
-            country = GetSubString(line.strip("\n"),startChar=',',endChar=',')
-            if country != currentcountry:
+            country = GetCSVValue(line.strip("\n"),1)
+            year = 0
+            try:
+                year = int(GetCSVValue(line.strip("\n"),4))
+            except ValueError:
+                continue
+            if country != currentcountry and year >= 2015 and year < 2016:
                 currentcountry = country
                 output.write(line)

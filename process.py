@@ -18,6 +18,19 @@ def GetSubString(_str: string, index: number = 0, startChar='"', endChar='"'):
     res = _str[indexes[0]+1:indexes[1]]
     return res
 
+def GetCSVValue(_str: string, index: number = 0):
+    indexes = []
+    for i in range(0, len(_str)):
+        if (_str[i] == ',' or i == 0):
+            if (index != 0):
+                index-=1
+                continue
+            indexes.append(i)
+        if (len(indexes) > 1):
+            break
+    res = _str[indexes[0]+1:indexes[1]]
+    return res
+
 def GetAllSubValues(_str: string, value: string, startChar='"', endChar='"', debug=False):
     gotallvalues = False
     values = []
